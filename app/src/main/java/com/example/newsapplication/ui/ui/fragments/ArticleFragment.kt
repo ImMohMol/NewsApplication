@@ -1,4 +1,4 @@
-package com.example.newsapplication.ui.fragments
+package com.example.newsapplication.ui.ui.fragments
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -7,10 +7,10 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import com.example.newsapplication.R
-import com.example.newsapplication.databinding.FragmentSavedNewsBinding
+import com.example.newsapplication.databinding.FragmentArticleBinding
 
-class SavedNewsFragment : Fragment() {
-    private lateinit var binding: FragmentSavedNewsBinding
+class ArticleFragment : Fragment() {
+    private lateinit var binding: FragmentArticleBinding
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -18,7 +18,7 @@ class SavedNewsFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         this.binding =
-            DataBindingUtil.inflate(inflater, R.layout.fragment_saved_news, container, false)
+            DataBindingUtil.inflate(inflater, R.layout.fragment_article, container, false)
         this.binding.lifecycleOwner = this
         return this.binding.root
     }
