@@ -1,12 +1,11 @@
 package com.example.newsapplication.ui.db
 
 import android.content.Context
-import androidx.room.Database
-import androidx.room.Room
-import androidx.room.RoomDatabase
+import androidx.room.*
 import com.example.newsapplication.ui.model.Article
 
 @Database(entities = [Article::class], version = 1)
+@TypeConverters(Convertors::class)
 abstract class ArticleDatabase : RoomDatabase() {
     abstract fun getArticleDAO(): IArticleDAO
 
