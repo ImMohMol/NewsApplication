@@ -5,6 +5,7 @@ import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+import java.util.concurrent.TimeUnit
 
 class RetrofitInstance {
     companion object {
@@ -13,6 +14,8 @@ class RetrofitInstance {
             logging.setLevel(HttpLoggingInterceptor.Level.BODY)
             val client = OkHttpClient.Builder()
                 .addInterceptor(logging)
+                .callTimeout(1, TimeUnit.MINUTES)
+                .readTimeout(1, TimeUnit.MINUTES)
                 .build()
             Retrofit.Builder()
                 .baseUrl(BASE_URL)
@@ -21,7 +24,7 @@ class RetrofitInstance {
                 .build()
         }
 
-        val api by lazy {
+        val api: INewsApiService by lazy {
             retrofit.create(INewsApiService::class.java)
         }
     }
