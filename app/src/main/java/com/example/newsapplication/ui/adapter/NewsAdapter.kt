@@ -2,20 +2,20 @@ package com.example.newsapplication.ui.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import android.widget.TextView
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView.Adapter
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
-import com.bumptech.glide.Glide
 import com.example.newsapplication.R
 import com.example.newsapplication.databinding.LayoutItemArticleBinding
 import com.example.newsapplication.ui.model.Article
-import kotlinx.android.synthetic.main.layout_item_article.view.*
+import com.facebook.drawee.view.SimpleDraweeView
 
 class NewsAdapter : Adapter<NewsAdapter.ArticleViewHolder>() {
 
-    inner class ArticleViewHolder(private val binding: LayoutItemArticleBinding) :
+    inner class ArticleViewHolder(val binding: LayoutItemArticleBinding) :
         ViewHolder(binding.root)
 
     private val differCallBack = object : DiffUtil.ItemCallback<Article>() {
@@ -44,13 +44,11 @@ class NewsAdapter : Adapter<NewsAdapter.ArticleViewHolder>() {
     override fun onBindViewHolder(holder: ArticleViewHolder, position: Int) {
         val article = differ.currentList[position]
         holder.itemView.also { view ->
-            Glide.with(view)
-                .load(article.urlToImage)
-                .into(view.ivArticleImage)
-            view.tvSource.text = article.source.name
-            view.tvTitle.text = article.title
-            view.tvDescription.text = article.description
-            view.tvPublishedAt.text = article.publishedAt
+            view.findViewById<SimpleDraweeView>(R.id.ivArticleImage).setImageURI(article.urlToImage)
+            view.findViewById<TextView>(R.id.tvSource).text = article.source.name
+            view.findViewById<TextView>(R.id.tvTitle).text = article.title
+            view.findViewById<TextView>(R.id.tvDescription).text = article.description
+            view.findViewById<TextView>(R.id.tvPublishedAt).text = article.publishedAt
             view.setOnClickListener {
                 this.onItemClickListener?.let {
                     it(article)

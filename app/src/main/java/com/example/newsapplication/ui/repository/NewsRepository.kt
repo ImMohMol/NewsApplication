@@ -10,4 +10,7 @@ class NewsRepository(private val db: ArticleDatabase) : INewsRepository {
         countryCode: String,
         pageNumber: Int
     ): Response<NewsResponse> = RetrofitInstance.api.getBreakingNews(countryCode, pageNumber)
+
+    override suspend fun searchNews(searchQuery: String, pageNumber: Int): Response<NewsResponse> =
+        RetrofitInstance.api.searchNews(searchQuery, pageNumber)
 }
