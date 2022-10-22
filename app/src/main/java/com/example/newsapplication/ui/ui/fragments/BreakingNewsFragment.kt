@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.newsapplication.R
 import com.example.newsapplication.databinding.FragmentBreakingNewsBinding
@@ -66,7 +67,12 @@ class BreakingNewsFragment : Fragment() {
     }
 
     private fun setupRecyclerView() {
-        newsAdapter = NewsAdapter()
+        this.newsAdapter = NewsAdapter()
+        this.newsAdapter.setOnItemClickListener {
+            this.findNavController().navigate(
+                BreakingNewsFragmentDirections.actionBreakingNewsFragmentToArticleFragment(it)
+            )
+        }
         this.binding.rvBreakingNews.apply {
             this.adapter = newsAdapter
             this.layoutManager = LinearLayoutManager(activity)

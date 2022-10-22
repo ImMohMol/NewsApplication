@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.core.widget.addTextChangedListener
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.newsapplication.R
 import com.example.newsapplication.databinding.FragmentSearchNewsBinding
@@ -90,7 +91,12 @@ class SearchNewsFragment : Fragment() {
     }
 
     private fun setupRecyclerView() {
-        newsAdapter = NewsAdapter()
+        this.newsAdapter = NewsAdapter()
+        this.newsAdapter.setOnItemClickListener {
+            this.findNavController().navigate(
+                BreakingNewsFragmentDirections.actionBreakingNewsFragmentToArticleFragment(it)
+            )
+        }
         this.binding.rvSearchNews.apply {
             this.adapter = newsAdapter
             this.layoutManager = LinearLayoutManager(activity)
