@@ -3,6 +3,7 @@ package com.example.newsapplication.ui.ui.viewModel
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.newsapplication.ui.model.Article
 import com.example.newsapplication.ui.model.NewsResponse
 import com.example.newsapplication.ui.repository.INewsRepository
 import com.example.newsapplication.ui.util.Resource
@@ -30,6 +31,16 @@ class NewsViewModel(private val repository: INewsRepository) : ViewModel() {
         breakingNewsLiveData.postValue(Resource.Loading())
         val searchNewsResponse = repository.searchNews(searchQuery, searchNewsPage)
         searchNewsLiveData.postValue(handleSearchNewsResponse(searchNewsResponse))
+    }
+
+    fun saveArticle(article: Article) = viewModelScope.launch {
+        repository.insertAndUpdate(article)
+    }
+
+    fun getFavoriteArticles() = this.repository.getFavoriteArticles()
+
+    fun deleteArticle(article: Article) = viewModelScope.launch {
+        repository.deleteArticle(article)
     }
 
     private fun handleBreakingNewsResponse(response: Response<NewsResponse>): Resource<NewsResponse> {
